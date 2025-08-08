@@ -1,11 +1,4 @@
 # Use the official Apache HTTP Server image as base
 FROM httpd:latest
 
-# Copy custom HTML content to Apache's document root
-COPY ./public-html/ /usr/local/apache2/htdocs/
-
-# Expose port 80
-EXPOSE 80
-
-# Default command (already in base image, so optional)
-CMD ["httpd-foreground"]
+touch test
