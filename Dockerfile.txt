@@ -1,20 +1,4 @@
-# Use Python lightweight image
-FROM python:3.9-slim
-
-# Create the app
-RUN echo 'from http.server import BaseHTTPRequestHandler, HTTPServer\n\
-class Handler(BaseHTTPRequestHandler):\n\
-    def do_GET(self):\n\
-        self.send_response(200)\n\
-        self.send_header("Content-type", "text/plain")\n\
-        self.end_headers()\n\
-        self.wfile.write(b"Hello World")\n\
-\n\
-if __name__ == "__main__":\n\
-    HTTPServer(("0.0.0.0", 80), Handler).serve_forever()' > server.py
-
-# Expose HTTP port
+FROM httpd:latest
+COPY ./public-html/ /usr/local/apache2/htdocs/
 EXPOSE 80
-
-# Run the server
-CMD ["python", "server.py"]
+CMD ["httpd-foreground"]
